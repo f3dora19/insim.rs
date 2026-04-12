@@ -58,9 +58,7 @@ impl Node {
         let center = self.get_center(scale);
 
         // Calculate the length of the direction vector
-        let dx = self.direction.1;
-        let dy = self.direction.0;
-        let length = (dx*dx + dy*dy).sqrt();
+        let length = self.direction.1.hypot(self.direction.0);
 
         let mut left: Vec3 = Vec3::ZERO;
         let mut right: Vec3 = Vec3::ZERO;
@@ -70,8 +68,8 @@ impl Node {
         if length > 0.0 {
 
             // Normalize the direction vector
-            let cos_theta = dx / length;
-            let sin_theta = dy / length;
+            let cos_theta = self.direction.1 / length;
+            let sin_theta = self.direction.0 / length;
 
             // Calculate the left and right limit positions
             left = Vec3 {
